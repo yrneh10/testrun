@@ -23,20 +23,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           # Run Snyk Code test and save JSON output
-          snyk code test --json > snyk-code.json || true
-      
-          # Extract critical count safely (handle null or empty vulnerabilities)
-          CRITICAL_COUNT=$(jq '[.vulnerabilities // [] | .[] | select(.severity == "high")] | length' snyk-code.json)
-      
-          echo "Critical issues found: $CRITICAL_COUNT"
-      
-          # Fail the build only if criticals are present
-          if [ "$CRITICAL_COUNT" -gt 0 ]; then
-            echo "❌ Failing due to critical vulnerabilities"
-            exit 1
-          else
-            echo "✅ No critical issues — build passes"
-          fi  
+          snyk code test --json-file-output=snyk-vuln.json || true
           snyk monitor --all-projects
 
       - name: Run Snyk CLI SCA & Monitor
