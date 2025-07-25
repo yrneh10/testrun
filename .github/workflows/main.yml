@@ -23,6 +23,8 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk code test --severity-threshold=low || true
+          echo "Failing build if high/critical found..."
+          snyk code test --severity-threshold=critical          
           snyk monitor --all-projects
 
       - name: Run Snyk CLI SCA & Monitor
