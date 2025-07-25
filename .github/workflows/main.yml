@@ -18,9 +18,17 @@ jobs:
       - name: Install Snyk CLI
         uses: snyk/actions/setup@master
 
-      - name: Run Snyk CLI Test & Monitor
+      - name: Run Snyk CLI SAST & Monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk code test 
+          snyk monitor --all-projects
+
+      - name: Run Snyk CLI SCA & Monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk test 
+          snyk monitor --all-projects          
           
