@@ -18,13 +18,28 @@ jobs:
       - name: Install Snyk CLI
         uses: snyk/actions/setup@master
 
-      - name: Run Snyk CLI SAST & Monitor
+      - name: Snyk Code Test (fail only if critical)
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          snyk code test --severity-threshold=low || true
-          echo "Failing build if high/critical found..."
-          snyk code test --severity-threshold=critical          
+          # Run test and save all issues
+          snyk code test --json > snyk-code.json || true
+      
+          # Print summary (optional)
+          cat snyk-code.json | jq '[.vulnerabilities[] | {severity, id, title}]'
+      
+          # Count criticals
+          CRITICAL_COUNT=$(jq '[.vulnerabilities[] | select(.severity == "critical")] | length' snyk-code.json)
+      
+          echo "Critical issues found: $CRITICAL_COUNT"
+      
+          # Fail only if critical issues exist
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
+            echo "❌ Failing the build due to critical vulnerabilities"
+            exit 1
+          else
+            echo "✅ No critical issues — build passes"
+          fi        
           snyk monitor --all-projects
 
       - name: Run Snyk CLI SCA & Monitor
