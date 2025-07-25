@@ -22,5 +22,5 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          snyk test --all-projects --detection-depth=5 || true
-          snyk monitor --all-projects --detection-depth=5
+          snyk code test --sarif
+          
