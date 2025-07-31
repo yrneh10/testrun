@@ -17,7 +17,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: code
+          command: code test
         continue-on-error: true            
 
       - name: Run Snyk to check for vulnerabilities - with command test
