@@ -26,4 +26,5 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
+                   monitor
         continue-on-error: true            
