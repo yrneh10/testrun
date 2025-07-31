@@ -1,18 +1,14 @@
 name: Example workflow for Node using Snyk full details
-on: push
+on:
+  push:
+    branches:
+      - feature
+
 jobs:
   security:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities - default
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        continue-on-error: true          
-
-
-      - name: Run Snyk to check for vulnerabilities - with command code
+    steps:    
+      - name: Run Snyk SAST
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -20,7 +16,7 @@ jobs:
           command: code test
         continue-on-error: true            
 
-      - name: Run Snyk to check for vulnerabilities - with command test
+      - name: Run Snyk SCA
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -28,7 +24,7 @@ jobs:
           command: test
         continue-on-error: true           
 
-      - name: Run Snyk to check for vulnerabilities - with command monitor
+      - name: Run Snyk monitor to push data to snyk web
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
