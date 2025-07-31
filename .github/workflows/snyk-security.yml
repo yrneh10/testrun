@@ -55,11 +55,14 @@ jobs:
       - name: Snyk Code test
         run: snyk code test || true
 
-        # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}        
+        # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.     
       - name: Snyk Open Source monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}         
         run: snyk monitor --all-projects || true
+
+
+   
 
 
 
