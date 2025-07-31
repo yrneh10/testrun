@@ -28,7 +28,7 @@ jobs:
           command: test
         continue-on-error: true           
 
-      - name: Run Snyk to check for vulnerabilities - with command test
+      - name: Run Snyk to check for vulnerabilities - with command monitor
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
