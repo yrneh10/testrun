@@ -7,4 +7,4 @@ on:
 
 jobs:
   call-security-scan:
-    uses: ./.github/workflows/nodereusable.yml
+    uses: yrneh10/testrun/.github/workflows/nodereusable.yml@main
