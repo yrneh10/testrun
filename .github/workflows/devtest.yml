@@ -1,4 +1,4 @@
-name: Call Reusable Snyk Scan
+name: Call Reusable Snyk CICD Scan
 
 on:
   push:
