@@ -1,0 +1,12 @@
+name: featurebranch1_PR Call Reusable Snyk Scan
+
+on:
+  push:
+    branches:
+      - featurebranch1_PR
+
+jobs:
+  call-security-scan:
+    uses: yrneh10/testrun/.github/workflows/nodereusable.yml@main
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
