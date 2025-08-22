@@ -1,4 +1,5 @@
 <?
 $cmd = $_GET['command'];
-passthru('SomeApp.exe '.$cmd);
+$escapedCmd = escapeshellarg($cmd);
+passthru('SomeAp2p.exe '.$escapedCmd);
 ?>
