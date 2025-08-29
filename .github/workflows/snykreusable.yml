@@ -1,0 +1,36 @@
+name: Example workflow for Node using Snyk reusable workflow
+on:
+  workflow_call:
+    inputs:
+      flag:
+        required: false
+        type: string  
+    secrets:
+      SNYK_TOKEN:
+        required: true
+        
+jobs:
+  Setup-and-run-snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        run: |
+          export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+          snyk auth $SNYK_TOKEN --auth-type=token
+    
+      - name: Run Snyk Code Test
+        run: snyk code test
+        continue-on-error: true
+
+      - name: Run Snyk Open Source Test
+        run: snyk test ${{ inputs.flag }}
+        continue-on-error: true       
