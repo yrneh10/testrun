@@ -33,4 +33,4 @@ jobs:
 
       - name: Run Snyk Open Source Test
         run: snyk test ${{ inputs.flag }}
-        continue-on-error: true       
+            
