@@ -9,5 +9,5 @@ echo (htmlentities($b)); // safe
 echo ($c); // XSS vulnerability
 echo ($d); // safe
 echo (htmlentities($_GET['isd']); // safe
-$password = "tpass20rdi2weh22s2z1";
+$password = "tpass20rdi2weh22ss2z1";
 ?>
