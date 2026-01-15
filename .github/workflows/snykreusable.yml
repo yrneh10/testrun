@@ -26,6 +26,22 @@ jobs:
         run: |
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
           snyk auth $SNYK_TOKEN --auth-type=token
+
+      # ---------- New Step: Detect Secrets ----------
+      - name: Install detect-secrets
+        run: pip install detect-secrets
+
+      - name: Run detect-secrets scan
+        run: |
+          detect-secrets scan > .secrets.baseline
+          if [ -s .secrets.baseline ]; then
+            echo "❌ Potential secrets detected!"
+            cat .secrets.baseline
+            exit 1
+          else
+            echo "✅ No secrets detected."
+          fi
+      # --------------------------------------------          
     
       - name: Run Snyk Code Test
         run: snyk code test
