@@ -35,7 +35,8 @@ jobs:
         run: |
           snyk test ${{ inputs.flag }} || true   # always continue, so workflow doesn't fail automatically
           CRITICAL_FOUND=$(snyk test --json ${{ inputs.flag }} | jq '.vulnerabilities[] | select(.severity=="high")')
-          echo CRITICAL_FOUND
+          echo "--------------------------------------------------------------------"
+          echo "$CRITICAL_FOUND"
           echo "--------------------------------------------------------------------"
           if [ -n "$CRITICAL_FOUND" ]; then
             echo "❌ high vulnerability found!"
