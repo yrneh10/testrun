@@ -1,7 +1,9 @@
 name: Call Reusable Snyk CICD Scan
 
 on:
-  workflow_dispatch:      
+  push:
+    branches:
+      - feature   
 #testnow
 jobs:
   call-security-scan:
