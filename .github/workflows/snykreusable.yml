@@ -34,11 +34,13 @@ jobs:
       - name: Run Snyk Open Source Test
         run: |
           snyk test ${{ inputs.flag }} || true   # always continue, so workflow doesn't fail automatically
-          CRITICAL_FOUND=$(snyk test --json ${{ inputs.flag }} | jq '.vulnerabilities[] | select(.severity=="critical")')
+          CRITICAL_FOUND=$(snyk test --json ${{ inputs.flag }} | jq '.vulnerabilities[] | select(.severity=="high")')
+          echo CRITICAL_FOUND
+          echo "--------------------------------------------------------------------"
           if [ -n "$CRITICAL_FOUND" ]; then
-            echo "❌ Critical vulnerability found!"
+            echo "❌ high vulnerability found!"
             exit 1
           else
-            echo "✅ No critical vulnerabilities found."
+            echo "✅ No high vulnerabilities found."
           fi
             
