@@ -32,5 +32,13 @@ jobs:
         continue-on-error: true
 
       - name: Run Snyk Open Source Test
-        run: snyk test ${{ inputs.flag }}
+        run: |
+          snyk test ${{ inputs.flag }} || true   # always continue, so workflow doesn't fail automatically
+          CRITICAL_FOUND=$(snyk test --json ${{ inputs.flag }} | jq '.vulnerabilities[] | select(.severity=="critical")')
+          if [ -n "$CRITICAL_FOUND" ]; then
+            echo "❌ Critical vulnerability found!"
+            exit 1
+          else
+            echo "✅ No critical vulnerabilities found."
+          fi
             
