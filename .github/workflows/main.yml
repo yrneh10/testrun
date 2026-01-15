@@ -18,13 +18,12 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           # Run Snyk Code test and save JSON output
-          snyk code test --json-file-output=snyk-vuln.json || true
-          snyk monitor --all-projects
+          snyk code test --json-file-output=snyk-vuln.json 
 
       - name: Run Snyk CLI SCA & Monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          snyk test  || true
+          snyk test  
           snyk monitor --all-projects          
           
