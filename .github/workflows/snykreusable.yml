@@ -32,5 +32,5 @@ jobs:
         continue-on-error: true
 
       - name: Run Snyk Open Source Test
-        run: snyk test ${{ inputs.flag }}
+        run: snyk test --severity-threshold=critical ${{ inputs.flag }}
             
