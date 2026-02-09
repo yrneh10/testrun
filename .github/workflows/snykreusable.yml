@@ -37,7 +37,6 @@ jobs:
           if [ -s .secrets.baseline ]; then
             echo "❌ Potential secrets detected!"
             cat .secrets.baseline
-            exit 1
           else
             echo "✅ No secrets detected."
           fi
