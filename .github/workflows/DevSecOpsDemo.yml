@@ -17,6 +17,13 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
+      - name: Snyk CLI Diagnostic
+        run: |
+          echo "Checking Snyk CLI Version..."
+          snyk --version
+          echo "Setting default Organization..."
+          snyk config set org=b3628176-0192-4246-9187-51a1dd97f64d        
+
       - name: Authenticate Snyk
         run: |
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
