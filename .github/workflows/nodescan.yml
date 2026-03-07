@@ -13,7 +13,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: code test
+          command: code test --json-file-output=vuln.json
         continue-on-error: true            
 
       - name: Run Snyk SCA
