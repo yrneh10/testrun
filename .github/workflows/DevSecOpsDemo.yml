@@ -1,0 +1,57 @@
+name: Example workflow for Node using Snyk reusable workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Setup-and-run-snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        run: |
+          export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+          snyk auth $SNYK_TOKEN --auth-type=token
+
+      # ---------- Detect Secrets ----------
+      - name: Install detect-secrets
+        run: pip install detect-secrets
+
+      - name: Run detect-secrets scan
+        run: |
+          detect-secrets scan > .secrets.baseline
+          if [ -s .secrets.baseline ]; then
+            echo "❌ Potential secrets detected!"
+            cat .secrets.baseline
+          else
+            echo "✅ No secrets detected."
+          fi
+      # -----------------------------------          
+    
+      - name: Run Snyk Code Test
+        run: snyk code test
+        continue-on-error: true
+
+      - name: Run Snyk Open Source Test
+        run: |
+          snyk test || true
+          HIGH_FOUND=$(snyk test --json | jq '.vulnerabilities[] | select(.severity=="high")')
+          echo "--------------------------------------------------------------------"
+          echo "$HIGH_FOUND"
+          echo "--------------------------------------------------------------------"
+          if [ -n "$HIGH_FOUND" ]; then
+            echo "❌ high vulnerability found!"
+            exit 1
+          else
+            echo "✅ No high vulnerabilities found."
+          fi
