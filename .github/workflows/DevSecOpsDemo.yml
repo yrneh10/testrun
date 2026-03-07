@@ -38,7 +38,7 @@ jobs:
       # -----------------------------------          
     
       - name: Run Snyk Code Test
-        run: snyk code test --severity-threshold=high
+        run: snyk code test --org=b3628176-0192-4246-9187-51a1dd97f64d --severity-threshold=high --debug
         continue-on-error: true
 
       - name: Run Snyk Open Source Test
