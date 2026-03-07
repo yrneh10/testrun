@@ -38,7 +38,7 @@ jobs:
       # -----------------------------------          
     
       - name: Run Snyk Code Test
-        run: snyk code test
+        run: snyk code test --debug
         #continue-on-error: true
 
       - name: Run Snyk Open Source Test
