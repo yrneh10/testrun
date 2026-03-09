@@ -20,9 +20,7 @@ jobs:
       - name: Snyk CLI Diagnostic
         run: |
           echo "Checking Snyk CLI Version..."
-          snyk --version
-          echo "Setting default Organization..."
-          snyk config set org=b3628176-0192-4246-9187-51a1dd97f64d        
+          snyk --version  
 
       - name: Authenticate Snyk
         run: |
@@ -45,12 +43,8 @@ jobs:
       # -----------------------------------          
     
       - name: Run Snyk Code Test
-        # We use 'env' to pass the token and bypass 'snyk auth'
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          SNYK_CFG_ORG: b3628176-0192-4246-9187-51a1dd97f64d
         run: |
-          snyk code test --org=b3628176-0192-4246-9187-51a1dd97f64d --severity-threshold=high
+          snyk code test 
         continue-on-error: true
 
       - name: Run Snyk Open Source Test
