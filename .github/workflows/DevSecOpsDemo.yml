@@ -44,6 +44,7 @@ jobs:
      #snyk code test --include-ignores --json > snyk.json || true
       - name: Run Snyk Code Test
         run: |
+          export SNYK_DISABLE_ANALYTICS=1
           snyk code test --org=b3628176-0192-4246-9187-51a1dd97f64d
         continue-on-error: true
 
