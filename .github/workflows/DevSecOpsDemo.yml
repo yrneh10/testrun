@@ -47,6 +47,12 @@ jobs:
           snyk code test --include-ignores --json > snyk.json
         continue-on-error: true
 
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report
+          path: snyk.json        
+
       - name: Run Snyk Open Source Test
         run: |
           snyk test || true
