@@ -45,7 +45,7 @@ jobs:
       - name: Run Snyk Code Test
         run: |
           snyk code test --include-ignores --json > snyk.json
-          snyk code test --include-ignores || true
+          cat snyk.json
         continue-on-error: true
 
       - name: Upload Snyk report
