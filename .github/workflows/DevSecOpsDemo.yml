@@ -44,7 +44,7 @@ jobs:
     
       - name: Run Snyk Code Test
         run: |
-          snyk code test --include-ignores
+          snyk code test --include-ignores --json
         continue-on-error: true
 
       - name: Run Snyk Open Source Test
