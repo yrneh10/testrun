@@ -41,11 +41,10 @@ jobs:
             echo "✅ No secrets detected."
           fi
       # -----------------------------------          
-    
+     #snyk code test --include-ignores --json > snyk.json || true
       - name: Run Snyk Code Test
         run: |
-          snyk code test --include-ignores --json > snyk.json || true
-          jq '.' snyk.json
+          snyk code test || true
         continue-on-error: true
 
       - name: Upload Snyk report
