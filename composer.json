@@ -1,5 +1,6 @@
 
-ame": "test/fortify-php-app",
+{
+  "name": "test/fortify-php-app",
   "description": "Sample PHP app for Fortify scan",
   "type": "project",
   "require": {
