@@ -1,0 +1,13 @@
+
+ame": "test/fortify-php-app",
+  "description": "Sample PHP app for Fortify scan",
+  "type": "project",
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
